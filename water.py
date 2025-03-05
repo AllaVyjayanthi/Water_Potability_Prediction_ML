@@ -275,9 +275,6 @@ with gr.Blocks(css=custom_css) as main_ui:
         Trihalomethanes = gr.Number(label="Trihalomethanes")
         Turbidity = gr.Number(label="Turbidity")
         submit = gr.Button("Predict")
-        submit.click(predict_water_quality, 
-                 inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity], 
-                 outputs="text")
         submit.click(predict_water_quality, inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity],
                          outputs=[potability_score, recommendations, prediction_output, water_chart])
         reset.click(lambda: [7.5, 150, 500, 4, 250, 500, 2, 80, 1], outputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity])
