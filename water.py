@@ -307,4 +307,4 @@ with gr.Blocks(css=custom_css) as main_ui:
             visualize_button = gr.Button("Visualize Data")
             visualize_button.click(visualize_input_data, inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity], outputs=visualize_output)
 
-main_ui.launch()
+main_ui.launch(share=True)
