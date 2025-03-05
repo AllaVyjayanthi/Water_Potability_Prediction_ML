@@ -109,6 +109,12 @@ def display_water_standards():
         "Standard Value": ["6.5 - 8.5", "0 - 300 mg/L", "< 500 mg/L", "< 4 mg/L", "< 250 mg/L", "50 - 500 µS/cm", "< 2 mg/L", "< 80 µg/L", "< 1 NTU"]
     }
     return pd.DataFrame(standards)
+import gradio as gr
+
+# Define the function before calling it
+def predict_water_quality(pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity):
+    # Your prediction logic here
+    return "Potable"  # Example return value
 
 # Function to display user dashboard in table format
 def get_user_dashboard():
@@ -257,9 +263,24 @@ with gr.Blocks(css=custom_css) as main_ui:
             recommendations = gr.Textbox(label="Recommendations", interactive=False, elem_classes=["output"])
             prediction_output = gr.Textbox(label="Prediction (0: Not Potable, 1: Potable)", interactive=False, elem_classes=["output"])
             water_chart = gr.HTML(label="Water Quality Chart")
-            submit.click(predict_water_quality, inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity],
+            # Define UI components
+    with gr.Blocks() as demo:
+        pH = gr.Number(label="pH")
+        Hardness = gr.Number(label="Hardness")
+        Solids = gr.Number(label="Solids")
+        Chloramines = gr.Number(label="Chloramines")
+        Sulfate = gr.Number(label="Sulfate")
+        Conductivity = gr.Number(label="Conductivity")
+        Organic_carbon = gr.Number(label="Organic Carbon")
+        Trihalomethanes = gr.Number(label="Trihalomethanes")
+        Turbidity = gr.Number(label="Turbidity")
+        submit = gr.Button("Predict")
+        submit.click(predict_water_quality, 
+                 inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity], 
+                 outputs="text")
+        submit.click(predict_water_quality, inputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity],
                          outputs=[potability_score, recommendations, prediction_output, water_chart])
-            reset.click(lambda: [7.5, 150, 500, 4, 250, 500, 2, 80, 1], outputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity])
+        reset.click(lambda: [7.5, 150, 500, 4, 250, 500, 2, 80, 1], outputs=[pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity])
 
         with gr.TabItem("Water Quality Standards"):
             gr.Markdown("## Water Quality Standards")
