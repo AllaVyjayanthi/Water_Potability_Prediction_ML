@@ -1,0 +1,8 @@
+joblib
+scikit-learn
+tinydb
+gradio
+pandas
+numpy
+matplotlib
+fpdf2
