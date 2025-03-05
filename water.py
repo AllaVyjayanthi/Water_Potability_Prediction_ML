@@ -1,6 +1,3 @@
-!pip install gradio
-!pip install tinydb
-!pip install fpdf2
 import gradio as gr
 import numpy as np
 import joblib
